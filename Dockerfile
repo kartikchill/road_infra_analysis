@@ -9,9 +9,12 @@ RUN npm run build
 FROM python:3.10-slim
 WORKDIR /app
 
-# Install backend deps
+# Install Python dependencies (light ones)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install heavy ML deps
+RUN pip install --no-cache-dir ultralytics opencv-python-headless torch torchvision torchaudio
 
 # Copy backend
 COPY backend/ ./backend/
