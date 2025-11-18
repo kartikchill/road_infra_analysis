@@ -1,30 +1,39 @@
-# ---------- Build Frontend ----------
-FROM node:20 AS frontend
+##############################################
+# 1) Build Frontend
+##############################################
+FROM node:20-slim AS frontend
+
 WORKDIR /frontend
-COPY frontend/ .
-RUN npm install
+COPY frontend/ ./
+
+RUN npm install --legacy-peer-deps
 RUN npm run build
 
-# ---------- Backend + Frontend Serve ----------
-FROM python:3.10-slim
+
+##############################################
+# 2) Backend + Serve Frontend
+##############################################
+FROM python:3.10-slim AS backend
+
+# Disable Python cache → reduces image size
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Install Python dependencies (light ones)
+# Install ONLY needed backend deps
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install heavy ML deps
-RUN pip install --no-cache-dir ultralytics opencv-python-headless torch torchvision torchaudio
-
-# Copy backend
+# Copy backend code
 COPY backend/ ./backend/
 
-# Copy built frontend into backend/static
+# Create static folder
 RUN mkdir -p backend/static
+
+# Copy built frontend output
 COPY --from=frontend /frontend/dist/ ./backend/static/
 
-# Expose port
 EXPOSE 8000
 
-# Run FastAPI
 CMD ["uvicorn", "backend.app:app", "--host", "0.0.0.0", "--port", "8000"]
