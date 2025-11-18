@@ -137,5 +137,13 @@ async def health():
     return {"status": "ok"}
 
 
-if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8002, reload=True)
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
+# Serve built frontend
+app.mount("/static", StaticFiles(directory="backend/static"), name="static")
+
+@app.get("/")
+def serve_frontend():
+    return FileResponse("backend/static/index.html")
