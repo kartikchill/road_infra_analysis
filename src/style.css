@@ -1,21 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.upload-box {
-    background: #1f2937;
-    padding: 15px 25px;
-    border-radius: 12px;
-    border: 2px solid #fbbf24;
-    cursor: pointer;
-    font-weight: bold;
-    color: #fbbf24;
-    transition: 0.2s;
+
+body {
+  background-color: #0f1011;
 }
-.upload-box:hover {
-    background: #fbbf24;
-    color: black;
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-.active-range {
-    border: 3px solid #fbbf24;
-    box-shadow: 0 0 15px #fbbf24;
+::-webkit-scrollbar-track {
+  background: #141416; 
+}
+::-webkit-scrollbar-thumb {
+  background: #374151; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff7a18; 
+}
+
+/* Utility to hide scrollbar for clean specific areas if needed */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
