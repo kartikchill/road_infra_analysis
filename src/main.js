@@ -1,6 +1,6 @@
 console.log("Frontend Loaded 🔥");
 
-const BACKEND = "https://oakyags-backend.hf.space";
+const BACKEND = "http://localhost:8002";
 
 // DOM elements
 const imageInput = document.getElementById("imageInput");
@@ -144,6 +144,39 @@ resetBtn.addEventListener("click", () => {
 // Close error modal
 closeErrorModal.addEventListener("click", () => {
   videoTooLongModal.classList.add("hidden");
+});
+
+// ----------------------------
+// EXPLANATION MODAL
+// ----------------------------
+const explainBtn = document.getElementById("explainBtn");
+const explanationModal = document.getElementById("explanationModal");
+const closeExplanationModal = document.getElementById("closeExplanationModal");
+const closeExplanationBtn = document.getElementById("closeExplanationBtn");
+
+if (explainBtn) {
+  explainBtn.addEventListener("click", () => {
+    explanationModal.classList.remove("hidden");
+  });
+}
+
+if (closeExplanationModal) {
+  closeExplanationModal.addEventListener("click", () => {
+    explanationModal.classList.add("hidden");
+  });
+}
+
+if (closeExplanationBtn) {
+  closeExplanationBtn.addEventListener("click", () => {
+    explanationModal.classList.add("hidden");
+  });
+}
+
+// Close modal when clicking outside
+explanationModal.addEventListener("click", (e) => {
+  if (e.target === explanationModal) {
+    explanationModal.classList.add("hidden");
+  }
 });
 
 // ----------------------------
