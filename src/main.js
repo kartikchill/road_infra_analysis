@@ -1,6 +1,6 @@
 console.log("Frontend Loaded 🔥");
 
-const BACKEND = "http://localhost:8002";
+const BACKEND = "https://oakyags-backend.hf.space";
 
 // DOM elements
 const imageInput = document.getElementById("imageInput");
